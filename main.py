@@ -42,7 +42,50 @@ def check_collision_with_walls():
 
 
 def check_collision_with_paddle():
-    pass
+    global ball, paddle
+    # record x-axis coordinates of ball and paddle
+    paddle_x = paddle.xcor()
+    ball_x = ball.xcor()
+
+    # check if ball's distance(from its middle)
+    # from paddle(from its middle) is less than
+    # width of paddle and ball is below a certain
+    # coordinate to detect their collision
+    if ball.distance(paddle) < 110 and ball.ycor() < -250:
+
+        # If Paddle is on Right of Screen
+        if paddle_x > 0:
+            if ball_x > paddle_x:
+                # If ball hits paddles left side it
+                # should go back to left
+                ball.bounce(x_bounce=True, y_bounce=True)
+                return
+            else:
+                ball.bounce(x_bounce=False, y_bounce=True)
+                return
+
+        # If Paddle is left of Screen
+        elif paddle_x < 0:
+            if ball_x < paddle_x:
+                # If ball hits paddles left side it
+                # should go back to left
+                ball.bounce(x_bounce=True, y_bounce=True)
+                return
+            else:
+                ball.bounce(x_bounce=False, y_bounce=True)
+                return
+
+        # Else Paddle is in the Middle horizontally
+        else:
+            if ball_x > paddle_x:
+                ball.bounce(x_bounce=True, y_bounce=True)
+                return
+            elif ball_x < paddle_x:
+                ball.bounce(x_bounce=True, y_bounce=True)
+                return
+            else:
+                ball.bounce(x_bounce=False, y_bounce=True)
+                return
 
 
 def check_collision_with_bricks():
