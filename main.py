@@ -89,7 +89,31 @@ def check_collision_with_paddle():
 
 
 def check_collision_with_bricks():
-    pass
+    global ball, bricks
+
+    for brick in bricks.bricks:
+        if ball.distance(brick) < 40:
+            brick.quantity -= 1
+            if brick.quantity == 0:
+                brick.clear()
+                brick.goto(3000, 3000)
+                bricks.bricks.remove(brick)
+
+            # detect collision from left
+            if ball.xcor() < brick.left_wall:
+                ball.bounce(x_bounce=True, y_bounce=False)
+
+            # detect collision from right
+            elif ball.xcor() > brick.right_wall:
+                ball.bounce(x_bounce=True, y_bounce=False)
+
+            # detect collision from bottom
+            elif ball.ycor() < brick.bottom_wall:
+                ball.bounce(x_bounce=False, y_bounce=True)
+
+            # detect collision from top
+            elif ball.ycor() > brick.upper_wall:
+                ball.bounce(x_bounce=False, y_bounce=True)
 
 
 while playing_game:
@@ -100,5 +124,7 @@ while playing_game:
     check_collision_with_walls()
 
     check_collision_with_paddle()
+
+    check_collision_with_bricks()
 
 tr.mainloop()
