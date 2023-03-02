@@ -1,5 +1,3 @@
-# code
-print("GFG")
 from turtle import Turtle
 
 try:
