@@ -99,4 +99,6 @@ while playing_game:
 
     check_collision_with_walls()
 
+    check_collision_with_paddle()
+
 tr.mainloop()
